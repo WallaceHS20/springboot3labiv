@@ -29,6 +29,10 @@ public class TrabalhoService {
         return trabalhoOp.get();
     }
 
+    public List<Trabalho> buscarTrabalhoPorPalavraENota(String titulo, Integer notaMinima) {
+        return trabalhoRepo.findBytituloContainingAndNotaGreaterThan(titulo, notaMinima);
+    }
+
     @Transactional
     public Trabalho novoTrabalho(Trabalho trabalho) {
         if(trabalho == null ||
@@ -47,6 +51,7 @@ public class TrabalhoService {
             throw new IllegalArgumentException("Usuário com atributos inválidos!");
         }
 
+        trabalho = trabalhoRepo.save(trabalho);
         return trabalho;
 
     }
